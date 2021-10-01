@@ -150,6 +150,8 @@ select date_format(cast('2021-10-01' as date), '%Y-%m-%d');
 select cast(1-2 as unsigned);
 select casT(cast(1-2 as unsigned)as signed);
 
+
+
 -- mysql, type
 -- 문자 : varchar() < cahr < text < CLOB(Character Large OBject)
 -- 정수 : signed(unsigned), int(integer), medium int, big int, int(11)
