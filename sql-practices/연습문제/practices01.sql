@@ -21,6 +21,9 @@ select count(gender) from employees where gender = 'M';
 select count(gender) from employees where gender = 'F';
 select count(gender='M') as M,count(gender='F') as F from employees;
 
+select count(*) from employees;
+select gender, count(gender) from employees group by gender;
+
 -- 문제4
 -- 현재 근무하고 있는 직원 수는 몇 명입니까? (salaries 테이블을 사용합니다.)
 -- to_date='9999-01-01'
