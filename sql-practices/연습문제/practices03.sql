@@ -2,6 +2,18 @@
 -- 현재 급여가 많은 직원부터 직원의 사번, 이름, 그리고 연봉을 출력 하시오.
 -- 현재 = to_date - 9999 01 01 
 select * from salaries;
+select * from employees;
+select max(salary) from salaries;
+select * from salaries join employees on salaries.emp_no = employees.emp_no;
+select max(salary) from salaries join employees on salaries.emp_no = employees.emp_no;
+select * from salaries where salary = 158220;
+select * from employees where emp_no = 43624;
+-- tokutasu
+
+select first_name from salaries join employees on salaries.emp_no = employees.emp_no group by salary,first_name having max(salary);
+
+
+
 -- 문제2.
 -- 전체 사원의 사번, 이름, 현재 직책을 이름 순서로 출력하세요.
 
