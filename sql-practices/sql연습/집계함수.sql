@@ -22,3 +22,9 @@ select emp_no, avg(salary)as avg from salaries group by emp_no having avg > 6000
 
 -- order by
 select emp_no, avg(salary)as avg from salaries group by emp_no having avg > 60000 order by avg desc;
+
+-- ex)salaries 테이블에서 사번이 10060인 직원의 평균 급여, 총합을 출력하라.
+select * from salaries;
+-- 실행은 되지만 문법상 오류임 --> 오라클가면 오류뜸
+select emp_no, avg(salary) as 평균,sum(salary) as 총합 from salaries where emp_no='10060';
+
