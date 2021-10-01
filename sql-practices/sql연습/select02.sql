@@ -41,3 +41,47 @@ select emp_no, dept_no from dept_emp where dept_no  in(select 'd005');
 -- like 검색
 select first_name, hire_date from employees where hire_date like '1989%';
 
+-- ex) 남자 직원의 전체 이름, 성별, 입사일을 입사일 순(선입순)으로 출력하라
+select * from employees;
+select concat(first_name,'',last_name), gender, hire_date from employees where gender='M' order by hire_date asc;
+
+-- ex) 직원들의 사번, 월급을 사번,월급,이름 순으로 출력
+select * from salaries;
+select * from employees;
+select * from salaries join employees where salaries.emp_no=employees.emp_no; 
+select salary, first_name from salaries join employees where salaries.emp_no=employees.emp_no order by salary asc;
+select emp_no,salary from salaries order by emp_no asc,salary desc;
+
+-- 함수 : 문자열 함수
+-- upper() - 모든 문자열 대문자로 만들어줌
+select upper('buSan'), upper('busan'), upper('Douzone');
+select upper(first_name) from employees;
+
+-- lower() - 모든 문자열 소문자로 만들어줌
+select lower('buSan'), lower('busan'), lower('Douzone');
+
+-- substring(문자열, index, length)
+-- ll
+select substring('hello world',3,2);
+
+-- ex) 1989년에 입사한 사원들의 이름, 입사일 출력
+select first_name, hire_date from employees where hire_date=substring(hire_date, 1, 4);
+select * from employees;
+
+-- lpad(오른쪽 정렬), rpad
+-- 10자리 공간을 생성하고 빈공간을 -로 채운다analyze
+select lpad('1234', 10, '-');
+select rpad('1234', 10, '-');
+
+-- ex) 직원들의 월급을 오른쪽 정렬로 빈공간을 *
+select lpad(salary,10,'*') from salaries;
+
+-- trim(공백 제거)  ltrim = 왼쪽 공백 없애줌, rtrim = 오른쪽 공백 없애줌
+select concat('---',ltrim('   hello   '),'---');
+select concat('---',rtrim('   hello   '),'---');
+
+select concat('---',ltrim('   hello   '),'---'),
+       concat('---',rtrim('   hello   '),'---'),
+       concat('---',trim(both 'X' from 'xxhelloxxx'),'---');          
+       
+
