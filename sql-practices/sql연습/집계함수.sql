@@ -17,7 +17,7 @@ select emp_no,avg(salary) from salaries group by emp_no;
 
 -- Having
 -- 집계 결과(결과 임시 테이블)에서 row를 선택해야 하는 경우
--- 이미 where절은 실행이 되었기 때문에 having절에서 조건을 주어야 한다.
+-- 이미 where절은 실행이 되었기 때문에 having절에서 조건을 주어야 한다.ss
 select emp_no, avg(salary)as avg from salaries group by emp_no having avg > 60000;
 
 -- order by
