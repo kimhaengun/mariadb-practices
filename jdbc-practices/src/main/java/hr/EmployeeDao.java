@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.naming.spi.DirStateFactory.Result;
+import javax.sql.DataSource;
 
 public class EmployeeDao {
 	
@@ -18,14 +19,7 @@ public class EmployeeDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			//1. JDBC 드라이버 로딩
-			Class.forName("org.mariadb.jdbc.Driver");
-			
-			//2. 연결하기
-			//   연결 url 필요
-			String url = "jdbc:mysql://127.0.0.1:3306/employees?charset=utf-8";
-			 conn = DriverManager.getConnection(url, "hr", "hr");
-			System.out.println("DB 연결 성공");
+			conn = getConnection();
 			
 			//3. Statement 생성
 			
@@ -57,8 +51,6 @@ public class EmployeeDao {
 				System.out.println(empNo+ " : "+ firstName);
 			}
 			
-		} catch (ClassNotFoundException e) {
-			System.out.println("드라이버 로딩 실패 : "+e);
 		}catch(SQLException e) {
 			System.out.println("error : "+e);
 		}finally {
@@ -88,16 +80,7 @@ public class EmployeeDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			//1. JDBC 드라이버 로딩
-			Class.forName("org.mariadb.jdbc.Driver");
-			
-			//2. 연결하기
-			//   연결 url 필요
-			String url = "jdbc:mysql://127.0.0.1:3306/employees?charset=utf-8";
-			 conn = DriverManager.getConnection(url, "hr", "hr");
-			System.out.println("DB 연결 성공");
-			
-			//3. Statement 생성
+			conn = getConnection();
 			
 			//4.SQL 실행하기
 			String sql = "select e.emp_no, e.first_name, e.last_name, s.salary from salaries s, employees e "
@@ -126,8 +109,6 @@ public class EmployeeDao {
 				
 			}
 			
-		} catch (ClassNotFoundException e) {
-			System.out.println("드라이버 로딩 실패 : "+e);
 		}catch(SQLException e) {
 			System.out.println("error : "+e);
 		}finally {
@@ -148,5 +129,23 @@ public class EmployeeDao {
 			
 		}// end try ~ finally
 		return result;
+	}
+	
+	private Connection getConnection() throws SQLException {
+		Connection conn = null;
+		try {
+			//1. JDBC 드라이버 로딩
+			Class.forName("org.mariadb.jdbc.Driver");
+			//2. 연결하기
+			//   연결 url 필요
+			String url = "jdbc:mysql://127.0.0.1:3306/employees?charset=utf-8";
+			conn = DriverManager.getConnection(url, "hr", "hr");
+			System.out.println("DB 연결 성공");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println("드라이버 로딩 실패 : "+e);
+		}
+
+		return conn;
 	}
 }
