@@ -5,7 +5,7 @@ desc author;
 
 -- 1.insert author
 insert into author values(null, '스테파니메이어');
-select * from author;
+select no, name from author;
 
 -- 2.insert book
 insert into book values(null,'이클립스', 1, '대여가능');
