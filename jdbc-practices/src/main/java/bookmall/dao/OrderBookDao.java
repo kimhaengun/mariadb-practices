@@ -8,45 +8,46 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import bookmall.vo.CartVo;
+import bookmall.vo.OrderBookVo;
 import bookmall.vo.OrderVo;
 
-//주문
-public class OrderDao {
-	public List<OrderVo> findAll() {
+public class OrderBookDao {
+	public List<OrderBookVo> findAll() {
 		// TODO Auto-generated method stub
-		List<OrderVo> result = new ArrayList<OrderVo>();
+		List<OrderBookVo> result = new ArrayList<OrderBookVo>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			conn = getConnection();
 			
-			String sql = "select mo.no,mo.orderno,mo.price,mo.address,mo.member_no,m.name \r\n"
-					+ "from morder mo, member m where mo.member_no = m.no";
+			String sql = "select ob.amount, ob.price, b.no as bookNo, mo.no as orderNo,b.title,mo.address,mo.orderno  from order_book ob, morder mo, book b\r\n"
+					+ "where ob.book_no = b.no and ob.morder_no = mo.no";
 			pstmt = conn.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				Long no = rs.getLong(1);
-				Long orderNo = rs.getLong(2);
-				Long price = rs.getLong(3);
-				String address = rs.getString(4);
-				Long memberNo = rs.getLong(5);
-				String name = rs.getString(6);
+				Long amount = rs.getLong(1);
+				Long price = rs.getLong(2);
+				Long bookNo = rs.getLong(3);
+				Long orderNo = rs.getLong(4);
+				String bookTitle = rs.getString(5);
+				String orderAddress = rs.getString(6);
+				Long orderOderNo = rs.getLong(7); 
 				
-				OrderVo vo = new OrderVo();
-				vo.setNo(no);
-				vo.setOrderNo(orderNo);
+				OrderBookVo vo = new OrderBookVo();
+				vo.setAmount(amount);
 				vo.setPrice(price);
-				vo.setAddress(address);
-				vo.setMemberNo(memberNo);
-				vo.setMemberName(name);
+				vo.setBookNo(bookNo);
+				vo.setOrderNo(orderNo);
+				vo.setBookTitle(bookTitle);
+				vo.setorderAddress(orderAddress);
+				vo.setOrderOrderNo(orderNo);
 				result.add(vo);
 			}
 			
-			for(OrderVo vo : result) {
-				String info = String.format("번호 : %d, 주문번호 : %d, 가격 : %d, 주소 : %s, 유저번호 : %d, 유저이름 : %s",vo.getNo(),vo.getOrderNo(),vo.getPrice(),vo.getAddress(),vo.getMemberNo(),vo.getMemberName());
+			for(OrderBookVo vo : result) {
+				String info = String.format("주문번호 : %d, 책번호: : %d, 책이름 : %s, 가격 : %d, 수량 : %d, 주문번호 : %d, 주소 : %s",vo.getOrderOrderNo(),vo.getBookNo(),vo.getBookTitle(),vo.getPrice(),vo.getAmount(),vo.getOrderNo(),vo.getorderAddress());
 				System.out.println(info);
 			}
 
@@ -72,24 +73,24 @@ public class OrderDao {
 		return result;
 	}		
 	//insert
-	public boolean insert(OrderVo vo) {
+	public boolean insert(OrderBookVo vo) {
 		boolean result = false;
 		Connection conn =null;
 		PreparedStatement pstmt = null;
 		try {
 			conn = getConnection();
 			
-			String sql = "insert into morder values(null,?,?,?,?)";
+			String sql = "insert into order_book values(?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setLong(1, vo.getOrderNo());
+			pstmt.setLong(1, vo.getAmount());
 			pstmt.setLong(2, vo.getPrice());
-			pstmt.setString(3, vo.getAddress());
-			pstmt.setLong(4, vo.getMemberNo());
+			pstmt.setLong(3, vo.getBookNo());
+			pstmt.setLong(4, vo.getOrderNo());
 			
 			int count = pstmt.executeUpdate();
 			
-			System.out.println("주문번호 : "+ vo.getOrderNo()+", 가격 : "+vo.getPrice()+", 주소 : "+vo.getAddress()+", 유저번호 : "+vo.getMemberNo());
+			System.out.println("주문수량 : "+ vo.getAmount()+", 가격 : "+vo.getPrice()+", 책번호 : "+vo.getBookNo()+", 주문번호 : "+vo.getOrderNo());
 			result = count ==1;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -6,10 +6,11 @@ public class OrderVo {
 	private Long price; //주문 가격
 	private String address;//주소
 	private Long memberNo;//유저 no
+	private String memberName; //유저 이름
 	@Override
 	public String toString() {
 		return "OrderVo [no=" + no + ", orderNo=" + orderNo + ", price=" + price + ", address=" + address
-				+ ", memberNo=" + memberNo + "]";
+				+ ", memberNo=" + memberNo + ", memberName=" + memberName + "]";
 	}
 	public Long getNo() {
 		return no;
@@ -41,4 +42,11 @@ public class OrderVo {
 	public void setMemberNo(Long memberNo) {
 		this.memberNo = memberNo;
 	}
+	public String getMemberName() {
+		return memberName;
+	}
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+	
 }

@@ -1,19 +1,15 @@
 package bookmall.vo;
 
 public class CartVo {
-	private Long no;
+	private Long count; // 수량
 	private Long bookNo; // 책 no
 	private Long memberNo; // 유저 no
-	private Long count; // 수량
+	private String bookTitle; //책 이름
+	
 	@Override
 	public String toString() {
-		return "CartVo [no=" + no + ", bookNo=" + bookNo + ", memberNo=" + memberNo + ", count=" + count + "]";
-	}
-	public Long getNo() {
-		return no;
-	}
-	public void setNo(Long no) {
-		this.no = no;
+		return "CartVo [bookNo=" + bookNo + ", memberNo=" + memberNo + ", count=" + count + ", bookTitle=" + bookTitle
+				+ "]";
 	}
 	public Long getBookNo() {
 		return bookNo;
@@ -33,4 +29,11 @@ public class CartVo {
 	public void setCount(Long count) {
 		this.count = count;
 	}
+	public String getBookTitle() {
+		return bookTitle;
+	}
+	public void setBookTitle(String bookTitle) {
+		this.bookTitle = bookTitle;
+	}
+	
 }

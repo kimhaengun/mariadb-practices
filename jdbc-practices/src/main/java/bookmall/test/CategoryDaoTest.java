@@ -3,7 +3,7 @@ package bookmall.test;
 import bookmall.dao.CategoryDao;
 import bookmall.vo.CategoryVo;
 
-public class CategoryTest {
+public class CategoryDaoTest {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
